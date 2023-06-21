@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <img slot="start" class="logo_rep" src="../assets/images/sem_long_logo.png">
+    <ion-title class="title_rep">Reportes</ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button class="order_button" (click)="ordenarLista()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card *ngFor="let dato of datos" [ngClass]="getPrioridadClass(dato.prioridad_id_prioridad)">
+    <img *ngIf="dato.imagen" [src]="crearURLImagen(dato.imagen) | async" alt="Imagen" />
+    <ion-card-header>
+      <ion-card-title>Título: {{ dato.titulo }}</ion-card-title>
+      <ion-card-subtitle>ID: #{{ dato.id_reporte }}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>Descripción: {{ dato.descripcion }}</p>
+      <p>Fecha: {{ dato.fecha_ingreso }}</p>
+      <p>Piso: {{ dato.piso_id_piso }}</p>
+      <p>Prioridad: {{ dato.prioridad_id_prioridad }}</p>
+      <p *ngIf="isEstadoAbierto(dato.estado_r_id_estado)">Estado: Abierto</p>
+      <p *ngIf="isEstadoCerrado(dato.estado_r_id_estado)">Estado: Cerrado</p>
+      <p>Creado por: {{ dato.usuario_usuario }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

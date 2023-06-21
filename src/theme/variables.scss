@@ -232,5 +232,29 @@
     --ion-tab-bar-background: #1f1f1f;
 
     --ion-card-background: #1e1e1e;
+
+    .list-group-item.active {
+      border-color: #000000;
+    }
+
+    .prioridad-alta {
+      background-color: rgb(175, 3, 3); 
+    }
+
+    .prioridad-media {
+      background-color: rgb(255, 123, 0); 
+    }
+
+    .prioridad-baja {
+      background-color: rgb(42, 168, 190); 
+    }
+    
+    .alert-radio-label.sc-ion-alert-md {
+      color: #000000;
+    }
+    
+    :host.select-wrapper {
+      background: #00000045;
+    }
   }
 }

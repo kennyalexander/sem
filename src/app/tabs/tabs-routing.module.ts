@@ -4,7 +4,7 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -16,19 +16,27 @@ const routes: Routes = [
         loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'reportes',
+        loadChildren: () => import('../reportes/reportes.module').then(m => m.ReportesPageModule)
+      },
+      {
+        path: 'asignados',
+        loadChildren: () => import('../asignados/asignados.module').then( m => m.AsignadosPageModule)
+      },
+      {
+        path: 'reportar',
+        loadChildren: () => import('../reportar/reportar.module').then( m => m.ReportarPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/reportes',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/reportes',
     pathMatch: 'full'
   }
 ];
