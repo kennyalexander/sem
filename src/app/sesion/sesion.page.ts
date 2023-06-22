@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-sesion',
@@ -13,15 +14,16 @@ export class SesionPage implements OnInit {
   user: string = "";
   pass: string = "";
   estado: number = 1;
+  tituloerr: string = "Credenciales invalidas";
 
-  constructor(private http: HttpClient, private alertController: AlertController, private router: Router) { }
+  constructor(private http: HttpClient, private alertController: AlertController, private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
   }
 
   async presentAlert1() {
     const alert = await this.alertController.create({
-      header: 'Respuesta Exitosa',
+      header: 'Bienvenido '+ this.user,
       message: 'Inicio de sesión exitoso.',
       buttons: ['OK']
     });
@@ -31,7 +33,7 @@ export class SesionPage implements OnInit {
 
   async presentAlert2(mensaje: string | undefined) {
     const alert = await this.alertController.create({
-      header: 'Error',
+      header: this.tituloerr,
       message: mensaje,
       buttons: ['OK']
     });
@@ -57,11 +59,14 @@ export class SesionPage implements OnInit {
         let isAuthenticated = false;
         let errorMessage = '';
         let shouldShowErrorAlert = true;
+        errorMessage = '¡Usuario no existe!';
   
         for (const user of response) {
+
           if (user.usuario === loginData.user) {
             if (user.contrasena === loginData.password) {
               if (user.estado_u_id_estado_u === loginData.estado) {
+                this.apiService.username = user.usuario;
                 isAuthenticated = true;
                 console.log('Autenticación exitosa', user);
                 this.presentAlert1();
@@ -69,7 +74,8 @@ export class SesionPage implements OnInit {
                 shouldShowErrorAlert = false;
                 break;
               } else {
-                errorMessage = 'El usuario no está activo';
+                this.tituloerr = 'Usuario inactivo';
+                errorMessage = 'Pongase en contacto con el administrador';
                 this.presentAlert2(errorMessage);
                 shouldShowErrorAlert = false;
                 break;

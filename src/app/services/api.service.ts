@@ -6,17 +6,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  username: string = '';
-  private apiUrl = 'http://127.0.0.1:8000/api/1.0'; // Reemplaza con la URL de tu API
+  public username: string = '';
+  public reportar: string = 'http://127.0.0.1:8000/api/1.0/reporte/';
+  private apiUrl = 'http://127.0.0.1:8000/api/1.0';
 
   constructor(private http: HttpClient) { }
 
   getDatos(): Observable<any> {
-    const url = `${this.apiUrl}/reportelist/`; // Reemplaza con el endpoint de tu API para obtener los datos
+    const url = `${this.apiUrl}/reportelist/?estado_u_id_estado_u=1`; // Reemplaza con el endpoint de tu API para obtener los datos
     return this.http.get(url);
   }
 
-  getFilter(username: string): Observable<any> {
+  getFilter(): Observable<any> {
     const url = `${this.apiUrl}/reportelist/?asignado=${this.username}`;
     console.log(this.username) // Reemplaza con el endpoint de tu API para obtener los datos
     return this.http.get(url);
@@ -26,4 +27,6 @@ export class ApiService {
     const url = `${this.apiUrl}/insumolist/`;
     return this.http.get(url);
   }
+
+
 }

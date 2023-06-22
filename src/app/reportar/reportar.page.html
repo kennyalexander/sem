@@ -1,13 +1,60 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>reportar</ion-title>
+    <img slot="start" class="logo_rep" src="../assets/images/sem_long_logo.png">
+    <ion-title class="title_rep">Enviar reporte</ion-title>
+    <ion-buttons slot="end"> 
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">reportar</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Título</ion-label>
+      <ion-input type="text" [(ngModel)]="formulario.titulo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-textarea [(ngModel)]="formulario.descripcion"></ion-textarea>
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-label position="stacked">Usuario Usuario</ion-label>
+      <ion-input type="text" [(ngModel)]="formulario.usuario_usuario"></ion-input>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label>Prioridad</ion-label>
+      <ion-select [(ngModel)]="formulario.prioridad_id_prioridad">
+        <ion-select-option value="3">Alto</ion-select-option>
+        <ion-select-option value="2">Medio</ion-select-option>
+        <ion-select-option value="1">Bajo</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Piso</ion-label>
+      <ion-input type="text" [(ngModel)]="formulario.piso_id_piso"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sector</ion-label>
+      <ion-input type="text" [(ngModel)]="formulario.sector_id_sector"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sucursal</ion-label>
+      <ion-input type="text" [(ngModel)]="formulario.sucursal_id_sucursal"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Imagen</ion-label>
+      <ion-icon name="image-outline" slot="start"></ion-icon>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="enviarFormulario()">Enviar</ion-button>
 </ion-content>

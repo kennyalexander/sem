@@ -17,7 +17,6 @@ export class ReportesPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private modalController: ModalController) { }
 
   ngOnInit() {
-    this.username = history.state.username;
     this.cargarDatos();
     this.datos = this.ordenarPorPrioridad(this.datos);
   }
@@ -45,39 +44,14 @@ export class ReportesPage implements OnInit {
     });
   }
 
-  crearURLImagen(imagenBlob: Blob): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(imagenBlob);
-    });
-  }
-  
-  
-
-  // cargarDatos() {
-  //   this.apiService.getDatos()
-  //     .subscribe(
-  //       (response) => {
-  //         this.datos = response.sort((a: { id_repote: number; }, b: { id_repote: number; }) => a.id_repote - b.id_repote);
-  //         console.log(this.datos);
-  //       },
-  //       (error) => {
-  //         console.error(error);
-  //       }
-  //     );
-  // }
 
   cargarDatos() {
     this.apiService.getDatos().subscribe(
       (response: any[]) => {
         this.datos = response.sort((a: { id_reporte: number; }, b: { id_reporte: number; }) => a.id_reporte - b.id_reporte);
-        console.log(this.datos);
+        this.datos = this.ordenarPorPrioridad(this.datos);
   
-        this.datos = this.ordenarPorPrioridad(this.datos); // Mover la llamada aquí
-  
-        const base64String = '';
+        const base64String = "";
   
         try {
           const decodedData = base64js.toByteArray(base64String);
@@ -93,6 +67,8 @@ export class ReportesPage implements OnInit {
       }
     );
   }
+
+  
   
 
   arrayBufferToBase64(buffer: Uint8Array): string {
@@ -104,26 +80,7 @@ export class ReportesPage implements OnInit {
     }
     return window.btoa(binary);
   }
-  
-  // base64ToBlob(base64Data: string, contentType: string): Blob {
-  //   const byteCharacters = atob(base64Data);
-  //   const byteArrays = [];
-  
-  //   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-  //     const slice = byteCharacters.slice(offset, offset + 512);
-  
-  //     const byteNumbers = new Array(slice.length);
-  //     for (let i = 0; i < slice.length; i++) {
-  //       byteNumbers[i] = slice.charCodeAt(i);
-  //     }
-  
-  //     const byteArray = new Uint8Array(byteNumbers);
-  //     byteArrays.push(byteArray);
-  //   }
-  
-  //   return new Blob(byteArrays, { type: contentType });
-  // }
-  
+
   mostrarImagen(url: string) {
     const imgElement = document.createElement('img');
     imgElement.src = url;
