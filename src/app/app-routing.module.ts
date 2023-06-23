@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'reportar',
     loadChildren: () => import('./reportar/reportar.module').then( m => m.ReportarPageModule)
+  },
+  {
+    path: 'insumos',
+    loadChildren: () => import('./insumos/insumos.module').then( m => m.InsumosPageModule)
   }
 ];
 @NgModule({

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sesion',
@@ -16,10 +17,22 @@ export class SesionPage implements OnInit {
   estado: number = 1;
   tituloerr: string = "Credenciales invalidas";
 
-  constructor(private http: HttpClient, private alertController: AlertController, private router: Router, private apiService: ApiService) { }
+  constructor(private http: HttpClient, private alertController: AlertController, private router: Router, private apiService: ApiService, private toastController: ToastController) { }
 
   ngOnInit() {
   }
+
+  async welcomeToast() {
+    const toast = await this.toastController.create({
+      header: 'Bienvenido '+ this.user,
+      message: 'Inicio de sesión exitoso.',
+      duration: 2500, // Duración en milisegundos para mostrar el Toast
+      position: 'middle' // Posición en la que se mostrará el Toast ('top', 'bottom' o 'middle')
+    });
+  
+    toast.present();
+  }
+
 
   async presentAlert1() {
     const alert = await this.alertController.create({
@@ -68,8 +81,7 @@ export class SesionPage implements OnInit {
               if (user.estado_u_id_estado_u === loginData.estado) {
                 this.apiService.username = user.usuario;
                 isAuthenticated = true;
-                console.log('Autenticación exitosa', user);
-                this.presentAlert1();
+                this.welcomeToast();
                 this.router.navigateByUrl('tabs', { state: { username: user.usuario } });
                 shouldShowErrorAlert = false;
                 break;

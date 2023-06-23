@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { HttpClient } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reportar',
@@ -10,6 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class ReportarPage implements OnInit {
 
   username = this.apiService.username;
+  infopost: string ="";
+  infotitle: string ="";
 
   formulario = {
     titulo: '',
@@ -22,9 +26,22 @@ export class ReportarPage implements OnInit {
     imagen: null as File | null
   };
 
-  constructor(private apiService: ApiService, private http: HttpClient) { }
+  
+
+  constructor(private apiService: ApiService, private http: HttpClient, private toastController: ToastController, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  async infoToast(title: string, info: string) {
+    const toast = await this.toastController.create({
+      header: this.infotitle,
+      message: this.infopost,
+      duration: 3000, // Duración en milisegundos para mostrar el Toast
+      position: 'middle' // Posición en la que se mostrará el Toast ('top', 'bottom' o 'middle')
+    });
+  
+    toast.present();
   }
 
   enviarFormulario() {
@@ -44,13 +61,25 @@ export class ReportarPage implements OnInit {
     }
   
     this.http.post(url, formData).subscribe(
+
       (response) => {
+        const mensaje = JSON.stringify(response)
+        const mensaje2 = mensaje.slice(1, -1);
+        this.infotitle = "¡Enhorabuena!";
+        this.infopost = mensaje2;
+        this.infoToast(this.infotitle,this.infopost);
         console.log('Formulario enviado con éxito', response);
-        // Aquí puedes realizar acciones adicionales después de enviar el formulario
+        this.router.navigateByUrl('tabs')
+        this.limpiarFormulario();
+        console.log(this.username);
       },
       (error) => {
+        const mensaje = JSON.stringify(error)
+        this.infotitle = "Algo ocurrio";
+        this.infopost = "Reporte no enviado";
+        this.infoToast(this.infotitle,this.infopost);
         console.error('Error al enviar el formulario', error);
-        // Maneja el error de acuerdo a tus necesidades
+        this.limpiarFormulario();
       }
     );
   }
@@ -58,6 +87,17 @@ export class ReportarPage implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.formulario.imagen = file;
+  }
+
+  limpiarFormulario() {
+    this.formulario.titulo = '';
+    this.formulario.descripcion = '';
+    this.formulario.usuario_usuario = '';
+    this.formulario.prioridad_id_prioridad = '';
+    this.formulario.piso_id_piso = '';
+    this.formulario.sector_id_sector = '';
+    this.formulario.sucursal_id_sucursal = '';
+    this.formulario.imagen = null;
   }
 
 }
