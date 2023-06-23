@@ -17,6 +17,7 @@ export class ReportesPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private modalController: ModalController) { }
 
   ngOnInit() {
+    this.username = history.state.username;
     this.cargarDatos();
     this.datos = this.ordenarPorPrioridad(this.datos);
   }

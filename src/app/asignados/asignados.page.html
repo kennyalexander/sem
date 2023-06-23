@@ -11,7 +11,7 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card *ngFor="let dato of datos" [ngClass]="getPrioridadClass(dato.prioridad_id_prioridad)">
+  <ion-card *ngFor="let dato of datos; let i = index" [ngClass]="getPrioridadClass(dato.prioridad_id_prioridad)">
     <img [src]="dato.imagen ? 'data:image/png;base64,' + dato.imagen : 'https://ionicframework.com/docs/img/demos/card-media.png'" />
     <ion-card-header>
       <ion-card-title>{{ dato.titulo }}</ion-card-title>
@@ -24,6 +24,48 @@
       <p>Piso: {{ dato.piso_id_piso }}</p>
       <p>Prioridad: {{ dato.prioridad_id_prioridad }}</p>
       <p>Creado por: {{ dato.usuario_usuario }}</p>
+
+      #region
+      <ion-button id="open-modal-{{i}}" expand="block" (click)="openModal(dato.id_reporte)">Open</ion-button>
+            <ion-modal #modal trigger="open-modal-{{i}}" (willDismiss)="onWillDismiss($event)">
+              <ng-template>
+                <ion-content><div class="div_center">
+                  <div>
+                    <a>
+                      <img class="logo" src="assets/images/sem_long_logo.png">
+                    </a>
+                  </div>
+                </div><br>
+                    <ion-title class="ion-text-center">Seleccione insumo</ion-title><br>
+                      <ion-select placeholder="Seleccione insumo" fill="outline" class="custom-select" [(ngModel)]="combobox" required>
+                        <ion-select-option *ngFor="let option of options" [value]="option">
+                          {{ option.label }}
+                        </ion-select-option>
+                      </ion-select>
+                    <br>
+                    <ion-title class="ion-text-center">Cantidad utilizada</ion-title><br>
+                    <ion-input fill="outline" placeholder="Cantidad" [(ngModel)]="cantidad" name="cantidad" required></ion-input><br><br><br>
+                    
+                  
+                  <ion-button (click)="agregarElemento()" expand="full">Agregar</ion-button>
+                  <ion-list>
+                    <ion-item *ngFor="let elemento of elementos">
+                      Insumo: {{ elemento.label.label }} - Cantidad: {{ elemento.cantidad }}
+                    </ion-item>
+                  </ion-list>
+                </ion-content>
+                <ion-footer>
+                  <ion-toolbar>
+                    <ion-buttons slot="start">
+                      <ion-button (click)="cancel()">Volver</ion-button>
+                    </ion-buttons>
+                    <ion-buttons slot="end">
+                      <ion-button *ngIf="mostrarConfirmar" (click)="confirm()" [strong]="true">Confirmar</ion-button>
+                    </ion-buttons>
+                  </ion-toolbar>
+                </ion-footer>
+              </ng-template>
+            </ion-modal>
     </ion-card-content>
   </ion-card>
 </ion-content>

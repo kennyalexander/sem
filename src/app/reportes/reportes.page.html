@@ -9,7 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true"><br>
+  <ion-title class="ion-text-center">Bienvenido ¡{{ username }}!</ion-title><br>
 
   <ion-card *ngFor="let dato of datos" [ngClass]="getPrioridadClass(dato.prioridad_id_prioridad)">
     <img [src]="dato.imagen ? 'data:image/png;base64,' + dato.imagen : 'https://ionicframework.com/docs/img/demos/card-media.png'" />
