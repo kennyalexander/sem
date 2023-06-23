@@ -16,6 +16,7 @@ export class InsumosPage implements OnInit {
   username: string = localStorage.getItem('username') ?? '';
   infopost: string ="";
   infotitle: string ="";
+  estados: string ="";
 
   formulario = {
     solicitud: '',
@@ -30,12 +31,12 @@ export class InsumosPage implements OnInit {
   constructor(private apiService: ApiService, private alertController: AlertController, private http: HttpClient, private toastController: ToastController) { }
 
   ngOnInit() {
-    this.cargarDatos({ target: { value: 'todos' } });
+    this.cargarDatos({ target: { value: 'p' } });
   }
 
   async mostrarAlerta() {
     const alert = await this.alertController.create({
-      header: 'Alerta con formulario',
+      header: 'Realizar solicitud',
       inputs: [
         {
           name: 'solicitud',
@@ -49,12 +50,12 @@ export class InsumosPage implements OnInit {
         //   placeholder: 'Ingrese la fecha',
         //   value: this.formulario.Fecha
         // },
-        {
-          name: 'estado',
-          type: 'text',
-          placeholder: 'Ingrese el estado',
-          value: this.formulario.estado_s_id_estado_solicitud
-        },
+        // {
+        //   name: 'estado',
+        //   type: 'text',
+        //   placeholder: 'Ingrese el estado',
+        //   value: this.formulario.estado_s_id_estado_solicitud
+        // },
         {
           name: 'sucursal',
           type: 'text',
@@ -81,7 +82,6 @@ export class InsumosPage implements OnInit {
           handler: (data) => {
             console.log('Datos del formulario:', data);
             this.formulario.solicitud = data.solicitud;
-            this.formulario.estado_s_id_estado_solicitud = data.estado;
             this.formulario.sucursal_id_sucursal = data.sucursal;
             this.enviarFormulario();
             // Puedes hacer algo con los valores ingresados, como enviarlos a una API o almacenarlos en variables.

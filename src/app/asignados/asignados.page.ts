@@ -17,6 +17,8 @@ export class AsignadosPage implements OnInit {
   elementos: any[] = [];
   cantidad: number | undefined;
   mostrarConfirmar: boolean = false;
+  descripcion: String = "";
+  idrep: number | undefined;
   
 
   constructor( private apiService: ApiService, private http: HttpClient, private alertController: AlertController) { }
@@ -76,7 +78,7 @@ export class AsignadosPage implements OnInit {
 
   openModal(idReporte: number) {
     console.log('ID del reporte:', idReporte);
-  
+    this.idrep = idReporte;
     
   }
 
@@ -97,6 +99,8 @@ export class AsignadosPage implements OnInit {
       // Si no se ha seleccionado un insumo, seleccionar automáticamente el primer elemento de la lista
       if (this.elementos.length > 0) {
         this.combobox = this.elementos[0];
+
+
       } else {
         await this.presentAlert('Error', 'No se ha seleccionado un insumo');
         return;
@@ -124,11 +128,21 @@ export class AsignadosPage implements OnInit {
     const url = `http://127.0.0.1:8000/api/1.0/insumoupd/${idInsumo}/`;
     const requestBody = { stock: nuevoStock };
   
+    const putUrl = `http://127.0.0.1:8000/api/1.0/reporteupd/${this.idrep}/`;
+    const putRequestBody = { desc_solucion: this.descripcion, estado_r_id_estado: '2' };
+
     try {
       await this.http.put(url, requestBody).toPromise();
-      await this.presentAlert('Éxito', 'Reporte finalizado con éxito');
   
-      // Aquí puedes agregar cualquier otra lógica adicional después de actualizar el stock
+      try {
+        await this.http.put(putUrl, putRequestBody).toPromise();
+        await this.presentAlert('Éxito', 'Reporte finalizado con éxito');
+        this.cancel();
+        
+      } catch (error) {
+        console.error('Error al realizar la petición POST hacia Reporte final', error);
+        this.cancel();
+      }
   
       // Eliminar el elemento de la lista
       const index = this.elementos.findIndex((elemento) => elemento.id === idInsumo);
@@ -139,6 +153,9 @@ export class AsignadosPage implements OnInit {
       console.error('Error al actualizar el stock:', error);
       await this.presentAlert('Error', 'Error al actualizar el stock');
     }
+
+    const descripcion = this.descripcion;
+    
   }
   
   async presentAlert(header: string, message: string) {
@@ -151,8 +168,6 @@ export class AsignadosPage implements OnInit {
   }
 
   cancel() {
-    this.modal.dismiss(null, 'cancel');
-    console.log("canceladoo");
     window.location.reload();
     
   }
