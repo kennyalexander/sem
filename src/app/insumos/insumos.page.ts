@@ -18,8 +18,8 @@ export class InsumosPage implements OnInit {
   infotitle: string ="";
 
   formulario = {
-    Solicitud: '',
-    Fecha: '',
+    solicitud: '',
+    fecha: '2023-06-23T15:13:19.385455Z',
     estado_s_id_estado_solicitud: '',
     sucursal_id_sucursal: '',
     usuario_usuario: this.username,
@@ -41,14 +41,14 @@ export class InsumosPage implements OnInit {
           name: 'solicitud',
           type: 'text',
           placeholder: 'Ingrese la solicitud',
-          value: this.formulario.Solicitud
+          value: this.formulario.solicitud
         },
-        {
-          name: 'fecha',
-          type: 'date',
-          placeholder: 'Ingrese la fecha',
-          value: this.formulario.Fecha
-        },
+        // {
+        //   name: 'fecha',
+        //   type: 'date',
+        //   placeholder: 'Ingrese la fecha',
+        //   value: this.formulario.Fecha
+        // },
         {
           name: 'estado',
           type: 'text',
@@ -60,13 +60,13 @@ export class InsumosPage implements OnInit {
           type: 'text',
           placeholder: 'Ingrese la sucursal',
           value: this.formulario.sucursal_id_sucursal
-        },
-        {
-          name: 'usuario',
-          type: 'text',
-          placeholder: 'Ingrese el usuario',
-          value: this.formulario.usuario_usuario
         }
+        // {
+        //   name: 'usuario',
+        //   type: 'text',
+        //   placeholder: 'Ingrese el usuario',
+        //   value: this.formulario.usuario_usuario
+        // }
       ],
       buttons: [
         {
@@ -80,11 +80,9 @@ export class InsumosPage implements OnInit {
           text: 'Guardar',
           handler: (data) => {
             console.log('Datos del formulario:', data);
-            this.formulario.Solicitud = data.solicitud;
-            this.formulario.Fecha = data.fecha;
+            this.formulario.solicitud = data.solicitud;
             this.formulario.estado_s_id_estado_solicitud = data.estado;
             this.formulario.sucursal_id_sucursal = data.sucursal;
-            this.formulario.usuario_usuario = data.usuario;
             this.enviarFormulario();
             // Puedes hacer algo con los valores ingresados, como enviarlos a una API o almacenarlos en variables.
           }
@@ -100,16 +98,16 @@ export class InsumosPage implements OnInit {
     const urlinsumo = this.apiService.insumo;
   
     const formData = new FormData();
-    formData.append('Solicitud', this.formulario.Solicitud);
-    formData.append('Fecha', this.formulario.Fecha);
+    formData.append('solicitud', this.formulario.solicitud);
+    formData.append('fecha', this.formulario.fecha);
     formData.append('estado_s_id_estado_solicitud', this.formulario.estado_s_id_estado_solicitud);
     formData.append('sucursal_id_sucursal', this.formulario.sucursal_id_sucursal);
     formData.append('usuario_usuario', this.formulario.usuario_usuario);
 
 
-    console.log(this.formulario.Solicitud);
+    console.log(this.formulario.solicitud);
     console.log(this.formulario.usuario_usuario);
-    console.log(this.formulario.Fecha);
+    console.log(this.formulario.fecha);
     console.log(this.formulario.estado_s_id_estado_solicitud);
     console.log(this.formulario.sucursal_id_sucursal);
 

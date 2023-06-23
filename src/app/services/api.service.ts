@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
   public username: string = '';
   public reportar: string = 'http://127.0.0.1:8000/api/1.0/reporte/';
-  public insumo: string = 'http://127.0.0.1:8000/api/1.0/solicitudpost/';
+  public insumo: string = 'http://127.0.0.1:8000/api/1.0/solicitudlist/';
   private apiUrl = 'http://127.0.0.1:8000/api/1.0';
 
   constructor(private http: HttpClient) { }
