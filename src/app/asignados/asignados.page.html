@@ -30,11 +30,6 @@
             <ion-modal #modal trigger="open-modal-{{i}}" (willDismiss)="onWillDismiss($event)">
               <ng-template>
                 <ion-content><div class="div_center">
-                  <div>
-                    <a>
-                      <img class="logo" src="assets/images/sem_long_logo.png">
-                    </a>
-                  </div>
                 </div><br>
                     <ion-title class="ion-text-center">Seleccione insumo</ion-title><br>
                       <ion-select placeholder="Seleccione insumo" fill="outline" class="custom-select" [(ngModel)]="combobox" required>

@@ -51,17 +51,6 @@ export class ReportesPage implements OnInit {
       (response: any[]) => {
         this.datos = response.sort((a: { id_reporte: number; }, b: { id_reporte: number; }) => a.id_reporte - b.id_reporte);
         this.datos = this.ordenarPorPrioridad(this.datos);
-  
-        const base64String = "";
-  
-        try {
-          const decodedData = base64js.toByteArray(base64String);
-          const encodedData = this.arrayBufferToBase64(decodedData);
-          this.imagenDecodificada = 'data:image/png;base64,' + encodedData;
-          console.log(decodedData);
-        } catch (error) {
-          console.error(error);
-        }
       },
       (error) => { 
         console.error(error);

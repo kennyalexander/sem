@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../reportar/reportar.module').then( m => m.ReportarPageModule)
       },
       {
+        path: 'insumos',
+        loadChildren: () => import('../insumos/insumos.module').then( m => m.InsumosPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/reportes',
         pathMatch: 'full'

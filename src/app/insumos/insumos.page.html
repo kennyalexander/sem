@@ -1,13 +1,48 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>insumos</ion-title>
+    <img slot="start" class="logo_rep" src="../assets/images/sem_long_logo.png">
+    <ion-title class="title_rep">Insumos</ion-title>
+    <ion-buttons slot="end"> 
+      <ion-button (click)="mostrarAlerta()">agregar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <ion-title size="large">insumos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">insumos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-segment (ionChange)="cargarDatos($event)">
+      <ion-segment-button value="todos" checked>
+        Todos
+      </ion-segment-button>
+      <ion-segment-button value="p">
+        Pendiente
+      </ion-segment-button>
+      <ion-segment-button value="a">
+        Aprobado
+      </ion-segment-button>
+      <ion-segment-button value="r">
+        Rechazado
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-card *ngFor="let dato of datos">
+    <ion-card-header>
+      <ion-card-subtitle>{{dato.id_solicitud}}</ion-card-subtitle>
+      <ion-card-title>{{dato.solicitud}}</ion-card-title>
+      <ion-card-subtitle>{{dato.fecha}} </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p *ngIf="dato.estado_s_id_estado_solicitud === '1'">Pendiente</p>
+      <p *ngIf="dato.estado_s_id_estado_solicitud === '2'">Aprobado</p>
+      <p *ngIf="dato.estado_s_id_estado_solicitud === '3'">Rechazado</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

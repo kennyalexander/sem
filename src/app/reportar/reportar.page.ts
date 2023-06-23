@@ -10,10 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./reportar.page.scss'],
 })
 export class ReportarPage implements OnInit {
-
-  username = this.apiService.username;
   infopost: string ="";
   infotitle: string ="";
+  username: string = localStorage.getItem('username') ?? '';
 
   formulario = {
     titulo: '',
@@ -37,8 +36,8 @@ export class ReportarPage implements OnInit {
     const toast = await this.toastController.create({
       header: this.infotitle,
       message: this.infopost,
-      duration: 3000, // Duración en milisegundos para mostrar el Toast
-      position: 'middle' // Posición en la que se mostrará el Toast ('top', 'bottom' o 'middle')
+      duration: 3000,
+      position: 'middle'
     });
   
     toast.present();
@@ -65,7 +64,7 @@ export class ReportarPage implements OnInit {
       (response) => {
         const mensaje = JSON.stringify(response)
         const mensaje2 = mensaje.slice(1, -1);
-        this.infotitle = "¡Enhorabuena!";
+        this.infotitle = "¡Gracias por reportar!";
         this.infopost = mensaje2;
         this.infoToast(this.infotitle,this.infopost);
         console.log('Formulario enviado con éxito', response);
@@ -75,7 +74,7 @@ export class ReportarPage implements OnInit {
       },
       (error) => {
         const mensaje = JSON.stringify(error)
-        this.infotitle = "Algo ocurrio";
+        this.infotitle = "Malas noticias";
         this.infopost = "Reporte no enviado";
         this.infoToast(this.infotitle,this.infopost);
         console.error('Error al enviar el formulario', error);
@@ -90,14 +89,7 @@ export class ReportarPage implements OnInit {
   }
 
   limpiarFormulario() {
-    this.formulario.titulo = '';
-    this.formulario.descripcion = '';
-    this.formulario.usuario_usuario = '';
-    this.formulario.prioridad_id_prioridad = '';
-    this.formulario.piso_id_piso = '';
-    this.formulario.sector_id_sector = '';
-    this.formulario.sucursal_id_sucursal = '';
-    this.formulario.imagen = null;
+    window.location.reload()
   }
 
 }

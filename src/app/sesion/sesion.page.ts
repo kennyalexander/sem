@@ -11,32 +11,40 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./sesion.page.scss'],
 })
 export class SesionPage implements OnInit {
-
-  user: string = "";
-  pass: string = "";
+  user: string = '';
+  pass: string = '';
   estado: number = 1;
-  tituloerr: string = "Credenciales invalidas";
+  tituloerr: string = 'Credenciales inválidas';
 
-  constructor(private http: HttpClient, private alertController: AlertController, private router: Router, private apiService: ApiService, private toastController: ToastController) { }
+  constructor(
+    private http: HttpClient,
+    private alertController: AlertController,
+    private router: Router,
+    private apiService: ApiService,
+    private toastController: ToastController
+  ) {}
 
   ngOnInit() {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      this.apiService.username = storedUsername;
+    }
   }
 
   async welcomeToast() {
     const toast = await this.toastController.create({
-      header: 'Bienvenido '+ this.user,
+      header: 'Bienvenido ' + this.user,
       message: 'Inicio de sesión exitoso.',
-      duration: 2500, // Duración en milisegundos para mostrar el Toast
-      position: 'middle' // Posición en la que se mostrará el Toast ('top', 'bottom' o 'middle')
+      duration: 2500,
+      position: 'middle'
     });
-  
+
     toast.present();
   }
 
-
   async presentAlert1() {
     const alert = await this.alertController.create({
-      header: 'Bienvenido '+ this.user,
+      header: 'Bienvenido ' + this.user,
       message: 'Inicio de sesión exitoso.',
       buttons: ['OK']
     });
@@ -54,32 +62,28 @@ export class SesionPage implements OnInit {
     await alert.present();
   }
 
-  // 
-  
   login() {
     const url = 'http://127.0.0.1:8000/api/1.0/usuario/?usuario=';
-  
-    // Crear un objeto con los datos de inicio de sesión
+
     const loginData = {
       user: this.user,
       password: this.pass,
       estado: this.estado
     };
-  
-    // Realizar la solicitud GET al servidor para obtener la lista de usuarios
-    this.http.get<any[]>(url+loginData.user).subscribe(
+
+    this.http.get<any[]>(url + loginData.user).subscribe(
       (response: any[]) => {
         let isAuthenticated = false;
         let errorMessage = '';
         let shouldShowErrorAlert = true;
-        errorMessage = '¡Usuario no existe!';
-  
-        for (const user of response) {
+        errorMessage = '¡El usuario no existe!';
 
+        for (const user of response) {
           if (user.usuario === loginData.user) {
             if (user.contrasena === loginData.password) {
               if (user.estado_u_id_estado_u === loginData.estado) {
                 this.apiService.username = user.usuario;
+                localStorage.setItem('username', user.usuario);
                 isAuthenticated = true;
                 this.welcomeToast();
                 this.router.navigateByUrl('tabs', { state: { username: user.usuario } });
@@ -87,7 +91,7 @@ export class SesionPage implements OnInit {
                 break;
               } else {
                 this.tituloerr = 'Usuario inactivo';
-                errorMessage = 'Pongase en contacto con el administrador';
+                errorMessage = 'Póngase en contacto con el administrador';
                 this.presentAlert2(errorMessage);
                 shouldShowErrorAlert = false;
                 break;
@@ -102,7 +106,7 @@ export class SesionPage implements OnInit {
             errorMessage = 'El usuario no es correcto';
           }
         }
-  
+
         if (!isAuthenticated && shouldShowErrorAlert) {
           console.error(errorMessage);
           this.presentAlert2(errorMessage);
@@ -110,10 +114,8 @@ export class SesionPage implements OnInit {
       },
       (error) => {
         console.error('Error de autenticación', error);
-        this.presentAlert2('¡Error algo ocurrió!');
+        this.presentAlert2('¡Ocurrió un error!');
       }
     );
   }
-  
-
 }

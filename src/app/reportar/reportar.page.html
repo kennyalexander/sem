@@ -2,9 +2,9 @@
   <ion-toolbar>
     <img slot="start" class="logo_rep" src="../assets/images/sem_long_logo.png">
     <ion-title class="title_rep">Enviar reporte</ion-title>
-    <ion-buttons slot="end"> 
+    <ion-buttons slot="end">
     </ion-buttons>
-    
+
   </ion-toolbar>
 </ion-header>
 
@@ -50,6 +50,8 @@
       <input type="file" (change)="onFileSelected($event)" accept="image/*">
     </ion-item>
   </ion-list>
-
-  <ion-button expand="full" (click)="enviarFormulario()">Enviar</ion-button>
+  <div style="display: flex; justify-content: space-between;">
+    <ion-button (click)="enviarFormulario()" style="margin-right: 10px;">Enviar</ion-button>
+    <ion-button (click)="limpiarFormulario()" style="margin-left: 10px;">Limpiar</ion-button>
+  </div>
 </ion-content>
