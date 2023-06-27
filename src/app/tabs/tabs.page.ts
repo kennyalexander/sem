@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 
 
@@ -11,10 +12,12 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage implements OnInit {
+
   username: string = '';
+  menuType: string = 'push';
   
 
-  constructor(private router: Router, private alertController: AlertController, ) {}
+  constructor(private router: Router, private alertController: AlertController, private menuController: MenuController) {}
   ngOnInit() {
     this.username = history.state.username;
   }
@@ -40,7 +43,6 @@ export class TabsPage implements OnInit {
           text: 'Aceptar',
           handler: () => {
             // Acción a realizar al hacer clic en el botón "Aceptar"
-            this.cerrarSesion();
           }
         }
       ]
@@ -48,9 +50,12 @@ export class TabsPage implements OnInit {
   
     await alert.present();
   }
-  
-  cerrarSesion() {
-    localStorage.setItem('username', ''); // Establecer la variable 'username' en null en el almacenamiento local
-    this.router.navigate(['/sesion']); // Redirigir a la página de inicio de sesión
+
+
+  openMenu() {
+    this.menuController.open();
   }
+
+
+
 }

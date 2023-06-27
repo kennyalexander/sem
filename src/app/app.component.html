@@ -1,3 +1,74 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+  <ion-menu [type]="menuType" content-id="main-content" side="start">
+    <ion-header>
+      <ion-toolbar>
+        <ion-avatar slot="start">
+          <img alt="Silhouette of a person's head" [src]="this.imagen ? 'data:image/png;base64,' + this.imagen : 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+        </ion-avatar>
+        <ion-title>Perfil SEM</ion-title>
+        <ion-menu-toggle slot="end">
+          <ion-button fill="clear">
+            <ion-icon name="close-circle-outline">
+            </ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content >
+      <ion-toolbar>
+        <ion-item>
+          <ion-label>
+            Nombre: {{this.nombre}}
+          </ion-label> 
+        </ion-item>
+        <ion-item>
+          <ion-label>Usuario: {{this.username}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Email: {{this.email}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Nro. Sucursal: {{this.sucursal}}</ion-label>
+        </ion-item>
+
+      </ion-toolbar>
+
+      <ion-item>
+        <ion-accordion-group>
+          <ion-accordion value="first">
+            <ion-item slot="header" color="light">
+              <ion-label>Cambiar contraseña</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-item>
+                <ion-input type="password" [(ngModel)]="currentPassword">Contraseña actual</ion-input>
+              </ion-item>
+            
+              <ion-item>
+                <ion-input type="password" [(ngModel)]="password">Nueva contraseña</ion-input>
+              </ion-item>
+            
+              <ion-item>
+                <ion-input type="password" [(ngModel)]="confirmPassword">Confirmar nueva contraseña</ion-input>
+              </ion-item>
+            
+              <ion-button expand="full" (click)="verificaActualPass()">Cambiar Contraseña</ion-button>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">
+          Obscurecer
+        </ion-label>
+        <ion-toggle (ionChange)="onToggleColorTheme($event)"></ion-toggle>
+      </ion-item>
+
+      <ion-toolbar  class="ion-toolbar ion-toolbar--footer">
+        <ion-button (click)="confirmarCerrarSesion()" fill="clear" slot="end"><ion-label>Cerrar Sesion  </ion-label><ion-icon name="log-out-outline"></ion-icon></ion-button>
+      </ion-toolbar>
+      
+    </ion-content>
+  </ion-menu>
 </ion-app>

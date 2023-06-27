@@ -1,23 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <br><br><div class="div_center">
+    <br><br>
+    <div class="div_center">
       <a>
         <img class="logo" src="assets/images/sem_logo.png" height="90px">
       </a>
     </div>
-    <br><br><ion-title class="ion-text-center">Inicia sesión en SEM</ion-title><br><br>
+    <br><br>
+    <ion-title class="ion-text-center">Inicia sesión en SEM</ion-title>
+    <br><br>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">SEM</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-card color="secondary">
-      <ion-list>
+  <ion-card color="secondary">
+    <ion-list>
       <ion-item>
         <ion-label position="floating">Usuario</ion-label>
         <ion-input type="text" [(ngModel)]="user" required></ion-input>
@@ -27,11 +24,9 @@
         <ion-input type="password" [(ngModel)]="pass" required></ion-input>
       </ion-item>
     </ion-list>
-  
+
     <div class="ion-padding">
       <ion-button expand="full" (click)="login()">Iniciar</ion-button>
     </div>
   </ion-card>
-    
-  </ion-content>
 </ion-content>

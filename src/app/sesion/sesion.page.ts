@@ -15,6 +15,7 @@ export class SesionPage implements OnInit {
   pass: string = '';
   estado: number = 1;
   tituloerr: string = 'Credenciales inválidas';
+  rutuser: number = 0;
 
   constructor(
     private http: HttpClient,
@@ -70,6 +71,7 @@ export class SesionPage implements OnInit {
       password: this.pass,
       estado: this.estado
     };
+    console.log(loginData.user)
 
     this.http.get<any[]>(url + loginData.user).subscribe(
       (response: any[]) => {
@@ -83,7 +85,10 @@ export class SesionPage implements OnInit {
             if (user.contrasena === loginData.password) {
               if (user.estado_u_id_estado_u === loginData.estado) {
                 this.apiService.username = user.usuario;
+                this.rutuser = user.empleado_rut;
                 localStorage.setItem('username', user.usuario);
+                console.log(user.empleado_rut)
+                this.traerDatosEmp();
                 isAuthenticated = true;
                 this.welcomeToast();
                 this.router.navigateByUrl('tabs', { state: { username: user.usuario } });
@@ -118,4 +123,33 @@ export class SesionPage implements OnInit {
       }
     );
   }
+
+  traerDatosEmp(){
+    console.log("si entre a datos emp")
+    console.log(this.rutuser)
+    const urldelemp = 'http://127.0.0.1:8000/api/1.0/empleado/?rut='+this.rutuser;
+
+    this.http.get<any[]>(urldelemp)
+    .subscribe(
+      (response: any[]) => {
+        for (const usuario of response){
+          console.log(usuario)
+          localStorage.setItem('rut', usuario.rut);
+          localStorage.setItem('nombre', usuario.p_nombre + " "+ usuario.p_apellido);
+          localStorage.setItem('email', usuario.email);
+          localStorage.setItem('imagen', usuario.imagen);
+          localStorage.setItem('cargo', usuario.cargo_emp_id_cargo_emp);
+          localStorage.setItem('sucursal', usuario.sucursal_id_sucursal);
+        }
+
+
+
+  });
+
+
+  }
+
+
+
 }
+

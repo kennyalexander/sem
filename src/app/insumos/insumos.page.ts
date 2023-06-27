@@ -16,13 +16,14 @@ export class InsumosPage implements OnInit {
   username: string = localStorage.getItem('username') ?? '';
   infopost: string ="";
   infotitle: string ="";
-  estados: string ="";
+  estados: string = '1' ?? '' ;
+  sucursal: string = localStorage.getItem('sucursal') ?? '';
 
   formulario = {
     solicitud: '',
     fecha: '2023-06-23T15:13:19.385455Z',
-    estado_s_id_estado_solicitud: '',
-    sucursal_id_sucursal: '',
+    estado_s_id_estado_solicitud: this.estados ,
+    sucursal_id_sucursal: this.sucursal,
     usuario_usuario: this.username,
   };
 
@@ -56,12 +57,12 @@ export class InsumosPage implements OnInit {
         //   placeholder: 'Ingrese el estado',
         //   value: this.formulario.estado_s_id_estado_solicitud
         // },
-        {
-          name: 'sucursal',
-          type: 'text',
-          placeholder: 'Ingrese la sucursal',
-          value: this.formulario.sucursal_id_sucursal
-        }
+        // {
+        //   name: 'sucursal',
+        //   type: 'text',
+        //   placeholder: 'Ingrese la sucursal',
+        //   value: this.formulario.sucursal_id_sucursal
+        // }
         // {
         //   name: 'usuario',
         //   type: 'text',
@@ -82,7 +83,6 @@ export class InsumosPage implements OnInit {
           handler: (data) => {
             console.log('Datos del formulario:', data);
             this.formulario.solicitud = data.solicitud;
-            this.formulario.sucursal_id_sucursal = data.sucursal;
             this.enviarFormulario();
             // Puedes hacer algo con los valores ingresados, como enviarlos a una API o almacenarlos en variables.
           }
@@ -103,22 +103,18 @@ export class InsumosPage implements OnInit {
     formData.append('estado_s_id_estado_solicitud', this.formulario.estado_s_id_estado_solicitud);
     formData.append('sucursal_id_sucursal', this.formulario.sucursal_id_sucursal);
     formData.append('usuario_usuario', this.formulario.usuario_usuario);
-
-
-    console.log(this.formulario.solicitud);
-    console.log(this.formulario.usuario_usuario);
-    console.log(this.formulario.fecha);
-    console.log(this.formulario.estado_s_id_estado_solicitud);
-    console.log(this.formulario.sucursal_id_sucursal);
-
+    console.log(this.formulario);
   
-    this.http.post(urlinsumo, formData).subscribe(
+    this.http.post<any []>(urlinsumo, formData).subscribe(
 
-      (response) => {
+      (response: any[]) => {
+        const respuesta = response
+        console.log(respuesta);
         const mensaje = JSON.stringify(response)
         const mensaje2 = mensaje.slice(1, -1);
+        console.log(mensaje2);
         this.infotitle = "¡Gracias por reportar!";
-        this.infopost = mensaje2;
+        this.infopost = "Tu reposte sera revisado por un administrado";
         this.infoToast(this.infotitle,this.infopost);
         console.log('Formulario enviado con éxito', response);
         console.log(this.username);
