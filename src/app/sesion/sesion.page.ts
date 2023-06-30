@@ -141,9 +141,6 @@ export class SesionPage implements OnInit {
           localStorage.setItem('cargo', usuario.cargo_emp_id_cargo_emp);
           localStorage.setItem('sucursal', usuario.sucursal_id_sucursal);
         }
-
-
-
   });
 
 

@@ -45,30 +45,6 @@ export class InsumosPage implements OnInit {
           placeholder: 'Ingrese la solicitud',
           value: this.formulario.solicitud
         },
-        // {
-        //   name: 'fecha',
-        //   type: 'date',
-        //   placeholder: 'Ingrese la fecha',
-        //   value: this.formulario.Fecha
-        // },
-        // {
-        //   name: 'estado',
-        //   type: 'text',
-        //   placeholder: 'Ingrese el estado',
-        //   value: this.formulario.estado_s_id_estado_solicitud
-        // },
-        // {
-        //   name: 'sucursal',
-        //   type: 'text',
-        //   placeholder: 'Ingrese la sucursal',
-        //   value: this.formulario.sucursal_id_sucursal
-        // }
-        // {
-        //   name: 'usuario',
-        //   type: 'text',
-        //   placeholder: 'Ingrese el usuario',
-        //   value: this.formulario.usuario_usuario
-        // }
       ],
       buttons: [
         {

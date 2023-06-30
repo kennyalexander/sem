@@ -13,6 +13,7 @@ export class ReportarPage implements OnInit {
   infopost: string ="";
   infotitle: string ="";
   username: string = localStorage.getItem('username') ?? '';
+  sucursal: string = localStorage.getItem('sucursal') ?? '';
 
   formulario = {
     titulo: '',
@@ -21,7 +22,7 @@ export class ReportarPage implements OnInit {
     prioridad_id_prioridad: '',
     piso_id_piso: '',
     sector_id_sector: '',
-    sucursal_id_sucursal: '',
+    sucursal_id_sucursal: this.sucursal,
     imagen: null as File | null
   };
 

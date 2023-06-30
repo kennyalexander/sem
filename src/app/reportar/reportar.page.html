@@ -9,49 +9,52 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label position="stacked">Título</ion-label>
-      <ion-input type="text" [(ngModel)]="formulario.titulo"></ion-input>
-    </ion-item>
+  <ion-card>
+    <ion-card-content >
+      <ion-list>
 
-    <ion-item>
-      <ion-label position="stacked">Descripción</ion-label>
-      <ion-textarea [(ngModel)]="formulario.descripcion"></ion-textarea>
-    </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Título</ion-label>
+          <ion-input type="text" [(ngModel)]="formulario.titulo"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label>Prioridad</ion-label>
-      <ion-select [(ngModel)]="formulario.prioridad_id_prioridad">
-        <ion-select-option value="3">Alto</ion-select-option>
-        <ion-select-option value="2">Medio</ion-select-option>
-        <ion-select-option value="1">Bajo</ion-select-option>
-      </ion-select>
-    </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Descripción</ion-label>
+          <ion-textarea [(ngModel)]="formulario.descripcion"></ion-textarea>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Piso</ion-label>
-      <ion-input type="text" [(ngModel)]="formulario.piso_id_piso"></ion-input>
-    </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Sector</ion-label>
-      <ion-input type="text" [(ngModel)]="formulario.sector_id_sector"></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label>Prioridad</ion-label>
+          <ion-select [(ngModel)]="formulario.prioridad_id_prioridad">
+            <ion-select-option value="3">Alto</ion-select-option>
+            <ion-select-option value="2">Medio</ion-select-option>
+            <ion-select-option value="1">Bajo</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Sucursal</ion-label>
-      <ion-input type="text" [(ngModel)]="formulario.sucursal_id_sucursal"></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Piso</ion-label>
+          <ion-input type="text" [(ngModel)]="formulario.piso_id_piso"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Imagen</ion-label>
-      <ion-icon name="image-outline" slot="start"></ion-icon>
-      <input type="file" (change)="onFileSelected($event)" accept="image/*">
-    </ion-item>
-  </ion-list>
-  <div style="display: flex; justify-content: space-between;">
-    <ion-button (click)="enviarFormulario()" style="margin-right: 10px;">Enviar</ion-button>
-    <ion-button (click)="limpiarFormulario()" style="margin-left: 10px;">Limpiar</ion-button>
-  </div>
+        <ion-item>
+          <ion-label position="stacked">Sector</ion-label>
+          <ion-input type="text" [(ngModel)]="formulario.sector_id_sector"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="file" position="stacked">
+            <ion-input type="file" (change)="onFileSelected($event)" accept="image/*"
+              aria-label="File browser example"></ion-input>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <div style="display: flex; justify-content: space-between;">
+        <ion-button (click)="enviarFormulario()" style="margin-right: 10px;">Enviar</ion-button>
+        <ion-button (click)="limpiarFormulario()" style="margin-left: 10px;">Limpiar</ion-button>
+      </div>
+  
+  </ion-card-content>
+</ion-card>
 </ion-content>
