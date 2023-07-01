@@ -25,22 +25,22 @@ export class ReportesPage implements OnInit {
     return datos.sort((a, b) => {
       // Ordenar por prioridad
       if (a.prioridad_id_prioridad === 3 && b.prioridad_id_prioridad !== 3) {
-        return -1; // Si a es rojo y b no lo es, a debe estar antes que b
+        return -1; 
       } else if (a.prioridad_id_prioridad !== 3 && b.prioridad_id_prioridad === 3) {
-        return 1; // Si a no es rojo y b lo es, b debe estar antes que a
+        return 1;
       } else if (a.prioridad_id_prioridad === 2 && b.prioridad_id_prioridad !== 2) {
-        return -1; // Si a es amarillo y b no lo es, a debe estar antes que b
+        return -1;
       } else if (a.prioridad_id_prioridad !== 2 && b.prioridad_id_prioridad === 2) {
-        return 1; // Si a no es amarillo y b lo es, b debe estar antes que a
+        return 1;
       }
   
       // Ordenar por id_reporte
       if (a.id_reporte < b.id_reporte) {
-        return -1; // Si a.id_reporte es menor que b.id_reporte, a debe estar antes que b
+        return -1; 
       } else if (a.id_reporte > b.id_reporte) {
-        return 1; // Si a.id_reporte es mayor que b.id_reporte, b debe estar antes que a
+        return 1; 
       } else {
-        return 0; // Si a.id_reporte es igual a b.id_reporte, no hay cambio en el orden
+        return 0; 
       }
     });
   }
@@ -74,8 +74,6 @@ export class ReportesPage implements OnInit {
   mostrarImagen(url: string) {
     const imgElement = document.createElement('img');
     imgElement.src = url;
-  
-    // Aquí puedes hacer lo que necesites con el elemento de imagen (por ejemplo, agregarlo a un contenedor en tu HTML)
   }
 
   getPrioridadClass(prioridadId: number): string {
@@ -104,7 +102,7 @@ export class ReportesPage implements OnInit {
 
   abrirModal() {
     this.modalController.create({
-      component: 'nombre-del-modal' // Reemplaza 'nombre-del-modal' por el nombre de tu modal en el archivo HTML
+      component: 'nombre-del-modal'
     }).then((modal) => {
       modal.present();
     });
@@ -115,7 +113,6 @@ export class ReportesPage implements OnInit {
   }
 
   guardarInsumo() {
-    // Lógica para guardar los datos del insumo
     this.modalController.dismiss();
   }
 }
