@@ -35,14 +35,12 @@ export class TabsPage implements OnInit {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
-            // Acción a realizar al hacer clic en el botón "Cancelar"
             console.log('Cierre de sesión cancelado');
           }
         },
         {
           text: 'Aceptar',
           handler: () => {
-            // Acción a realizar al hacer clic en el botón "Aceptar"
           }
         }
       ]
