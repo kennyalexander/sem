@@ -81,14 +81,12 @@ export class AppComponent {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
-            // Acción a realizar al hacer clic en el botón "Cancelar"
             console.log('Cierre de sesión cancelado');
           }
         },
         {
           text: 'Aceptar',
           handler: () => {
-            // Acción a realizar al hacer clic en el botón "Aceptar"
             this.cerrarSesion();
           }
         }
@@ -129,15 +127,12 @@ export class AppComponent {
           const currentPasswordFromAPI = response.contrasena;
   
           if (currentPasswordFromAPI === this.currentPassword) {
-            // La contraseña actual es correcta, permite al usuario cambiarla
             this.comparapass();
           } else {
-            // La contraseña actual no es correcta, muestra una alerta al usuario
             this.presentAlert('Error', 'La contraseña actual no es correcta.');
           }
         },
         error => {
-          // Ocurrió un error al obtener la contraseña actual, muestra una alerta de error
           this.presentAlert('Error', 'Ocurrió un error al obtener la contraseña actual.');
         }
       );
@@ -145,10 +140,8 @@ export class AppComponent {
 
   comparapass() {
     if (this.password === this.confirmPassword) {
-      // Las contraseñas coinciden, realiza la llamada a la API para cambiar la contraseña
       this.cambiarpasseapi();
     } else {
-      // Las contraseñas no coinciden, muestra una alerta al usuario
       this.presentAlert('Error', 'Las contraseñas no coinciden.');
     }
   }
@@ -160,11 +153,9 @@ export class AppComponent {
       this.http.put(this.urlpass, newPassword)
         .subscribe(
           response => {
-            // La contraseña se actualizó correctamente, muestra una alerta de éxito
             this.presentAlert('Éxito', 'Contraseña actualizada correctamente.');
           },
           error => {
-            // Ocurrió un error al cambiar la contraseña, muestra una alerta de error
             this.presentAlert('Error', 'Ocurrió un error al cambiar la contraseña.');
           }
         );
