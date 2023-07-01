@@ -33,22 +33,22 @@ export class AsignadosPage implements OnInit {
     return datos.sort((a, b) => {
       // Ordenar por prioridad
       if (a.prioridad_id_prioridad === 3 && b.prioridad_id_prioridad !== 3) {
-        return -1; // Si a es rojo y b no lo es, a debe estar antes que b
+        return -1; 
       } else if (a.prioridad_id_prioridad !== 3 && b.prioridad_id_prioridad === 3) {
-        return 1; // Si a no es rojo y b lo es, b debe estar antes que a
+        return 1; 
       } else if (a.prioridad_id_prioridad === 2 && b.prioridad_id_prioridad !== 2) {
-        return -1; // Si a es amarillo y b no lo es, a debe estar antes que b
+        return -1; 
       } else if (a.prioridad_id_prioridad !== 2 && b.prioridad_id_prioridad === 2) {
-        return 1; // Si a no es amarillo y b lo es, b debe estar antes que a
+        return 1; 
       }
   
       // Ordenar por id_reporte
       if (a.id_reporte < b.id_reporte) {
-        return -1; // Si a.id_reporte es menor que b.id_reporte, a debe estar antes que b
+        return -1; 
       } else if (a.id_reporte > b.id_reporte) {
-        return 1; // Si a.id_reporte es mayor que b.id_reporte, b debe estar antes que a
+        return 1;
       } else {
-        return 0; // Si a.id_reporte es igual a b.id_reporte, no hay cambio en el orden
+        return 0;
       }
     });
   }
@@ -185,12 +185,12 @@ export class AsignadosPage implements OnInit {
       return;
     }
     
-    // Obtener el ID del insumo seleccionado
+    
     const idInsumo = this.combobox.id;
   
     const elemento = {
       label: this.combobox,
-      id: idInsumo, // Agregar el ID al elemento
+      id: idInsumo, 
       cantidad: this.cantidad
     };
     this.elementos.push(elemento);
