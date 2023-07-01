@@ -60,7 +60,6 @@ export class InsumosPage implements OnInit {
             console.log('Datos del formulario:', data);
             this.formulario.solicitud = data.solicitud;
             this.enviarFormulario();
-            // Puedes hacer algo con los valores ingresados, como enviarlos a una API o almacenarlos en variables.
           }
         }
       ]
@@ -143,7 +142,7 @@ export class InsumosPage implements OnInit {
               console.error(error);
             }
           );
-          break; // Pendiente
+          break;
         case 'a':
           this.apiService.getSolicitud('2').subscribe(
             (response: any[]) => {
@@ -154,7 +153,7 @@ export class InsumosPage implements OnInit {
               console.error(error);
             }
           );
-          break; // Aprobado
+          break;
         case 'r':
           this.apiService.getSolicitud('3').subscribe(
             (response: any[]) => {
@@ -165,7 +164,7 @@ export class InsumosPage implements OnInit {
               console.error(error);
             }
           );
-          break; // Rechazado
+          break;
         default:
           break;
       }
