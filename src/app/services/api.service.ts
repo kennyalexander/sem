@@ -16,7 +16,7 @@ export class ApiService {
   getDatos(): Observable<any> {
     const username = localStorage.getItem('username') ?? '';
     this.username = username;
-    const url = `${this.apiUrl}/reportelist/?estado_r_id_estado=1`; // Reemplaza con el endpoint de tu API para obtener los datos
+    const url = `${this.apiUrl}/reportelist/?estado_r_id_estado=1`;
     return this.http.get(url);
   }
 
