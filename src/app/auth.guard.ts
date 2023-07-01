@@ -8,15 +8,15 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): Promise<boolean> {
-    const username = localStorage.getItem('username'); // Obtener el valor almacenado en localStorage
+    const username = localStorage.getItem('username');
 
     if (username && username.trim() !== '') {
-      return Promise.resolve(true); // El usuario está iniciado y la variable 'username' contiene texto, permite el acceso
+      return Promise.resolve(true);
     } else if (username) {
-      this.router.navigate(['/tabs']); // El usuario está iniciado, pero la variable 'username' está vacía, redirige a la página de tabs
+      this.router.navigate(['/tabs']);
       return Promise.resolve(false);
     } else {
-      this.router.navigate(['/sesion']); // El usuario no está iniciado o la variable 'username' está vacía, redirige a la página de inicio de sesión
+      this.router.navigate(['/sesion']);
       return Promise.resolve(false);
     }
   }
