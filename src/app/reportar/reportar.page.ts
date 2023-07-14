@@ -31,6 +31,7 @@ export class ReportarPage implements OnInit {
   constructor(private apiService: ApiService, private http: HttpClient, private toastController: ToastController, private router: Router) { }
 
   ngOnInit() {
+    
   }
 
   async infoToast(title: string, info: string) {
@@ -68,9 +69,9 @@ export class ReportarPage implements OnInit {
         this.infotitle = "¡Gracias por reportar!";
         this.infopost = mensaje2;
         this.infoToast(this.infotitle,this.infopost);
+        this.formulario.imagen = null;
         console.log('Formulario enviado con éxito', response);
-        this.router.navigateByUrl('tabs')
-        this.limpiarFormulario();
+        this.router.navigateByUrl('tabs/reportes')
         console.log(this.username);
       },
       (error) => {
@@ -79,6 +80,7 @@ export class ReportarPage implements OnInit {
         this.infopost = "Reporte no enviado";
         this.infoToast(this.infotitle,this.infopost);
         console.error('Error al enviar el formulario', error);
+        this.formulario.imagen = null;
         this.limpiarFormulario();
       }
     );
