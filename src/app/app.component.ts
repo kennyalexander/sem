@@ -30,19 +30,6 @@ export class AppComponent {
   constructor(private router: Router,private alertController: AlertController,private menuController: MenuController, private renderer: Renderer2, private http: HttpClient) {}
   ngOnInit() {
     this.cargarDatos();
-    if(localStorage.getItem('datosusr')==='1'){
-      localStorage.setItem('datosusr', '0');
-      window.location.reload();
-    }
-    
-  }
-
-  ionViewDidEnter() {
-    window.location.reload();
-    if(localStorage.getItem('datosusr')==='1'){
-      localStorage.setItem('datosusr', '0');
-      window.location.reload();
-    }
   }
   ngAfterViewInit() {
     const isDark = localStorage.getItem('colorTheme');
@@ -72,10 +59,6 @@ export class AppComponent {
     this.cargo = localStorage.getItem('cargo');
     this.sucursal = localStorage.getItem('sucursal');
     this.username = localStorage.getItem('username');
-    if(localStorage.getItem('datosusr')==="1"){
-      localStorage.setItem('datosusr', '0');
-      window.location.reload();
-    }
 
   }
 

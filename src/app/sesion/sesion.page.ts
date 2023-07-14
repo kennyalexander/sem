@@ -88,7 +88,6 @@ export class SesionPage implements OnInit {
                 this.rutuser = user.empleado_rut;
                 localStorage.setItem('username', user.usuario);
                 console.log(user.empleado_rut)
-                localStorage.setItem('datosusr', '1');
                 this.traerDatosEmp();
                 isAuthenticated = true;
                 this.welcomeToast();
